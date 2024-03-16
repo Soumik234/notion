@@ -1,5 +1,5 @@
 import { z } from "zod";
-declare const signupSchema: z.ZodObject<{
+declare const signupSchemaDef: z.ZodObject<{
     email: z.ZodString;
     password: z.ZodString;
     name: z.ZodOptional<z.ZodString>;
@@ -12,7 +12,7 @@ declare const signupSchema: z.ZodObject<{
     password: string;
     name?: string | undefined;
 }>;
-declare const signinSchema: z.ZodObject<{
+declare const signinSchemaDef: z.ZodObject<{
     email: z.ZodString;
     password: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -22,7 +22,7 @@ declare const signinSchema: z.ZodObject<{
     email: string;
     password: string;
 }>;
-export declare const createBlogInput: z.ZodObject<{
+export declare const createBlogInputDef: z.ZodObject<{
     title: z.ZodString;
     content: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -32,7 +32,7 @@ export declare const createBlogInput: z.ZodObject<{
     title: string;
     content: string;
 }>;
-export declare const updateBlogInput: z.ZodObject<{
+export declare const updateBlogInputDef: z.ZodObject<{
     title: z.ZodOptional<z.ZodString>;
     content: z.ZodOptional<z.ZodString>;
     id: z.ZodNumber;
@@ -45,8 +45,8 @@ export declare const updateBlogInput: z.ZodObject<{
     title?: string | undefined;
     content?: string | undefined;
 }>;
-export type signupSchema = z.infer<typeof signupSchema>;
-export type signinSchema = z.infer<typeof signinSchema>;
-export type createBlogInput = z.infer<typeof createBlogInput>;
-export type updateBlogInput = z.infer<typeof updateBlogInput>;
+export type signupSchema = z.infer<typeof signupSchemaDef>;
+export type signinSchema = z.infer<typeof signinSchemaDef>;
+export type createBlogInput = z.infer<typeof createBlogInputDef>;
+export type updateBlogInput = z.infer<typeof updateBlogInputDef>;
 export {};

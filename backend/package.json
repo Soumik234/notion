@@ -6,6 +6,7 @@
   "dependencies": {
     "@prisma/client": "^5.11.0",
     "@prisma/extension-accelerate": "^0.6.3",
+    "@soumik007/notion-common": "^1.0.2",
     "hono": "^4.0.8"
   },
   "devDependencies": {
