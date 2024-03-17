@@ -1,0 +1,1 @@
+export const BACKEND_URL="https://backend.soumikb1240.workers.dev";

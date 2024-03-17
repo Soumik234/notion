@@ -1,7 +1,14 @@
-export const Signin=()=>{   
-    return(
-      <div>
-        <h1>Signin</h1>
+import { Quote } from "../component/Quote";
+import { Auth } from "../component/Auth";
+
+export const Signin = () => {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2">
+      <Auth type="Signin"/>
+
+      <div className="hidden lg:block">
+        <Quote />
       </div>
-    )
-}   
+    </div>
+  );
+};

@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-const signupSchemaDef = z.object({
+export const signupSchemaDef = z.object({
   email: z.string().email(),
   password: z.string().min(6),
   name: z.string().optional(),
 });
 
 // Zod validation schema for signin
-const signinSchemaDef = z.object({
+export const signinSchemaDef = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });

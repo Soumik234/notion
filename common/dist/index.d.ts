@@ -1,5 +1,5 @@
 import { z } from "zod";
-declare const signupSchemaDef: z.ZodObject<{
+export declare const signupSchemaDef: z.ZodObject<{
     email: z.ZodString;
     password: z.ZodString;
     name: z.ZodOptional<z.ZodString>;
@@ -12,7 +12,7 @@ declare const signupSchemaDef: z.ZodObject<{
     password: string;
     name?: string | undefined;
 }>;
-declare const signinSchemaDef: z.ZodObject<{
+export declare const signinSchemaDef: z.ZodObject<{
     email: z.ZodString;
     password: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -49,4 +49,3 @@ export type signupSchema = z.infer<typeof signupSchemaDef>;
 export type signinSchema = z.infer<typeof signinSchemaDef>;
 export type createBlogInput = z.infer<typeof createBlogInputDef>;
 export type updateBlogInput = z.infer<typeof updateBlogInputDef>;
-export {};

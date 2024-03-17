@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateBlogInputDef = exports.createBlogInputDef = void 0;
+exports.updateBlogInputDef = exports.createBlogInputDef = exports.signinSchemaDef = exports.signupSchemaDef = void 0;
 const zod_1 = require("zod");
-const signupSchemaDef = zod_1.z.object({
+exports.signupSchemaDef = zod_1.z.object({
     email: zod_1.z.string().email(),
     password: zod_1.z.string().min(6),
     name: zod_1.z.string().optional(),
 });
 // Zod validation schema for signin
-const signinSchemaDef = zod_1.z.object({
+exports.signinSchemaDef = zod_1.z.object({
     email: zod_1.z.string().email(),
     password: zod_1.z.string().min(6),
 });

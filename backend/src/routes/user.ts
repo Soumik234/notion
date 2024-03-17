@@ -1,9 +1,11 @@
+
+
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { Hono } from 'hono'
 import { sign } from 'hono/jwt'
-import { signupSchema } from '@soumik007/notion-common'
-import { signinSchema } from '@soumik007/notion-common'
+import {signupSchemaDef, signinSchemaDef} from '@soumik007/notion-common'
+
 export const userRouter = new Hono<{
     Bindings: {
         DATABASE_URL: string;
@@ -11,8 +13,6 @@ export const userRouter = new Hono<{
     };
 }>();
 
-//write zod validation for signup and signin
-// Zod validation schema for signup
 
 
 userRouter.post('/signup', async(c) => {
@@ -21,11 +21,8 @@ userRouter.post('/signup', async(c) => {
     }).$extends(withAccelerate())
   
     const body=await c.req.json();
-    const {success} = signupSchema.safeParse(body);
-    if(!success){
-      c.status(400);
-      return c.json({error: "Invalid input"});
-    }
+   const {success}=signupSchemaDef.safeParse(body)
+   
     try{
       const user=await prisma.user.create({
           data:{
@@ -48,7 +45,7 @@ userRouter.post('/signup', async(c) => {
       }).$extends(withAccelerate());
   
       const body = await c.req.json();
-      const {success} = signinSchema.safeParse(body);
+
       const user = await prisma.user.findUnique({
           where: {
               email: body.email
