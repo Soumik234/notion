@@ -9,12 +9,15 @@ interface BlogCardProps {
 }
 
 export const BlogCard = ({
+  id,
   author,
   title,
   content,
   publishedDate,
 }: BlogCardProps) => {
-  return  <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer">
+
+  return <Link to={`/blog/${id}`}>
+   <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer">
       <div className="flex">
           <Avatar name={author} />
           <div className="font-extralight pl-2 text-sm flex justify-center flex-col">{author}</div>
@@ -35,6 +38,7 @@ export const BlogCard = ({
           {`${Math.ceil(content.length / 100)} minute(s) read`}
       </div>
   </div>
+  </Link>
 }
 
 export function Circle() {

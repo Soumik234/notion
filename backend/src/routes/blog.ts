@@ -7,34 +7,32 @@ export const blogRouter = new Hono<{
   Bindings: {
     DATABASE_URL: string;
     JWT_SECRET: string;
-  },
+  };
   Variables: {
     userId: string;
-  },
+  };
 }>();
 
-blogRouter.use("/*", async(c, next) => {
-  try{
-    const authHeader=c.req.header("authorization") || "";
-    const user=await verify(authHeader,c.env.JWT_SECRET);
-    if(user){
-        c.set("userId",user.id);
-        await next();
+blogRouter.use("/*", async (c, next) => {
+  try {
+    const authHeader = c.req.header("authorization") || "";
+    const user = await verify(authHeader, c.env.JWT_SECRET);
+    if (user) {
+      c.set("userId", user.id);
+      await next();
+    } else {
+      c.status(401);
+      return c.text("You are not logged in!");
     }
-    else{
-        c.status(401);
-        return c.text("You are not logged in!");
-    }
-  }catch(e){
+  } catch (e) {
     c.status(403);
     return c.text("You are not logged in!");
   }
-  
 });
 
 blogRouter.post("/", async (c) => {
   const body = await c.req.json();
-  const userId=c.get("userId");
+  const userId = c.get("userId");
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -48,42 +46,49 @@ blogRouter.post("/", async (c) => {
   return c.json({ id: post.id });
 });
 
-blogRouter.get('bulk', async(c) => {
-  const prisma=new PrismaClient({
-      datasourceUrl:c.env.DATABASE_URL,
-    }).$extends(withAccelerate())
-    const posts=await prisma.post.findMany({
-      select:{
-        id:true,
-        title:true,
-        content:true,
-        author:{
-          select:{
-            name:true,
-          }
-        }
-      }
-
-
-    })
-    return c.json({ posts })
+blogRouter.get("/bulk", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+  const posts = await prisma.post.findMany({
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+  return c.json({ posts });
 });
 
-blogRouter.get("/:id", async(c) => {
-    try{
-        const id=await c.req.param("id");
-        const prisma=new PrismaClient({
-            datasourceUrl:c.env.DATABASE_URL,
-          }).$extends(withAccelerate())
-          const post=await prisma.post.findFirst({
-            where:{id:Number(id)}
-            })
-        return c.json({ post })
-
-    }catch(e){
-        c.status(411);
-        return c.text('post not found')
-    }
+blogRouter.get("/:id", async (c) => {
+  try {
+    const id = c.req.param("id");
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+    const post = await prisma.post.findFirst({
+      where: { id: Number(id) },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+    return c.json({ post });
+  } catch (e) {
+    c.status(411);
+    return c.text("post not found");
+  }
 });
 
 blogRouter.put("/", async (c) => {
@@ -102,4 +107,3 @@ blogRouter.put("/", async (c) => {
   });
   return c.json({ id: post.id });
 });
-
