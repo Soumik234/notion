@@ -41,6 +41,16 @@ blogRouter.post("/", async (c) => {
       title: body.title,
       content: body.content,
       authorId: Number(userId),
+      tags:{
+        create: body.tags.map((tag: string) => ({
+          name: tag,
+        })),
+      },
+      PostPhoto:{
+        create:{
+          imageUrl: body.image,
+        }
+      }
     },
   });
   return c.json({ id: post.id });
@@ -58,6 +68,17 @@ blogRouter.get("/bulk", async (c) => {
       author: {
         select: {
           name: true,
+        },
+      },
+      tags:{
+        select:{
+          name: true,
+        }
+      },
+      PostPhoto: {
+        select: {
+          imageUrl: true,
+          createdAt: true,
         },
       },
     },
@@ -82,6 +103,12 @@ blogRouter.get("/:id", async (c) => {
             name: true,
           },
         },
+        PostPhoto: {
+          select: {
+            imageUrl: true,
+            createdAt: true,
+          },
+        },
       },
     });
     return c.json({ post });
@@ -103,6 +130,7 @@ blogRouter.put("/", async (c) => {
     data: {
       title: body.title,
       content: body.content,
+      PostPhoto: body.image,
     },
   });
   return c.json({ id: post.id });
