@@ -10,6 +10,13 @@ export interface Blog {
   "author": {
     "name": string;
   };
+  "PostPhoto":{
+    "imageUrl":string;
+  }
+  tags: {
+    name: string[];
+  };
+
 }
 
 

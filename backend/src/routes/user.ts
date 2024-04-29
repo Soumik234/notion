@@ -11,7 +11,7 @@ export const userRouter = new Hono<{
   };
 }>();
 
-userRouter.post("/signup", async (c) => {
+userRouter.post("/", async (c) => {
   const body = await c.req.json();
   const { success } = signupSchemaDef.safeParse(body);
   if (!success) {

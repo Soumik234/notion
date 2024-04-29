@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 export const Publish = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
   const navigate = useNavigate();
   return (
     <>
@@ -35,6 +37,58 @@ export const Publish = () => {
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
+        <div className="flex flex-col">
+          <label htmlFor="image" className="mb-2">
+            Image
+          </label>
+          <input
+            placeholder="Enter the image URL here"
+            type="text"
+            id="image"
+            name="image"
+            className="border-2 border-gray-300 p-2 rounded-md mb-4"
+            onChange={(e) => setImage(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <label htmlFor="tags" className="mb-2">
+            Tags
+          </label>
+          <div className="border-2 border-gray-300 p-2 rounded-md mb-4 flex flex-wrap">
+            {tags.map((tag, index) => (
+              <div
+                key={index}
+                className="bg-blue-200 text-blue-700 rounded px-1 m-1 flex items-center"
+              >
+                <span>{tag}</span>
+                <button
+                  onClick={() => {
+                    const newTags = [...tags];
+                    newTags.splice(index, 1);
+                    setTags(newTags);
+                  }}
+                  className="ml-2  hover:bg-blue-500 font-bold py-1 px-2 rounded"
+                >
+                  x
+                </button>
+              </div>
+            ))}
+            <input
+              type="text"
+              id="tags"
+              name="tags"
+              placeholder="Press Enter after putting tags"
+              className="flex-grow"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && e.currentTarget.value) {
+                  setTags([...tags, e.currentTarget.value]);
+                  e.currentTarget.value = "";
+                  e.preventDefault();
+                }
+              }}
+            />
+          </div>
+        </div>
         <button
           onClick={async () => {
             const response = await axios.post(
@@ -42,6 +96,12 @@ export const Publish = () => {
               {
                 title,
                 content,
+                image,
+                tags:{
+                  create: tags.map((tag: string) => ({
+                    name: tag,
+                  })),
+                },
               },
               {
                 headers: {

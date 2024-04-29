@@ -14,7 +14,7 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   async function sendRequest() {
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/user/${type === "Signup" ? "signup" : "signin"}`,
+        `${BACKEND_URL}/api/v1/user${type === "Signup" ? "" : "/signin"}`,
         postInputs
       );
       const jwt = response.data.jwt;
@@ -38,7 +38,7 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
               ? "Don't have an account?"
               : "Already have an account?"}
             <Link
-              to={type === "Signin" ? "/signup" : "/signin"}
+              to={type === "Signin" ? "/" : "/signin"}
               className="pl-2 underline"
             >
               {type === "Signin" ? "Sign up" : "Sign in"}

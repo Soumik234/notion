@@ -41,16 +41,16 @@ blogRouter.post("/", async (c) => {
       title: body.title,
       content: body.content,
       authorId: Number(userId),
-      tags:{
+      PostPhoto: {
+        create: {
+          imageUrl: body.image,
+        },
+      },
+      tags: {
         create: body.tags.map((tag: string) => ({
           name: tag,
         })),
       },
-      PostPhoto:{
-        create:{
-          imageUrl: body.image,
-        }
-      }
     },
   });
   return c.json({ id: post.id });
@@ -70,10 +70,10 @@ blogRouter.get("/bulk", async (c) => {
           name: true,
         },
       },
-      tags:{
-        select:{
+      tags: {
+        select: {
           name: true,
-        }
+        },
       },
       PostPhoto: {
         select: {
@@ -118,6 +118,34 @@ blogRouter.get("/:id", async (c) => {
   }
 });
 
+blogRouter.put("/:id", async (c) => {
+  const id = c.req.param("id");
+  const body = await c.req.json();
+  const tags = body.tags; // Extract tags from the body
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  try {
+    const updatedPost = await prisma.post.update({
+      where: { id: Number(id) },
+      data: {
+        tags: {
+          connectOrCreate: tags.map((tag: string) => ({
+            where: { name: tag },
+            create: { name: tag },
+          })),
+        },
+      },
+    });
+  
+    c.json(updatedPost);
+  } catch (error) {
+    console.error(error); // Log the error message to the console
+    c.status(500);
+    return c.json({ error: 'Something went wrong', details: (error as Error).message });
+  }
+});
 blogRouter.put("/", async (c) => {
   const body = await c.req.json();
   const prisma = new PrismaClient({

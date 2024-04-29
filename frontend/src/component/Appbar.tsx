@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Appbar = () => {
   return (
     <div className="border-b flex justify-between px-10 py-4 cursor-pointer">
-      <Link to={"/"} className="flex flex-col justify-center">
+      <Link to={"/"} className="flex flex-col justify-center text-xl">
         Notion
       </Link>
 

@@ -13,7 +13,8 @@ export const SingleBlog = ({ blog }: { blog: Blog }) => {
         <div className="grid grid-cols-12 px-10 w-full pt-200 max-w-screen-xl">
           <div className="col-span-8">
             <div className="p-10">
-              <div className="text-3xl font-bold">{blog.title}</div>
+            <img src={blog?.PostPhoto?.[0]?.imageUrl || "https://via.placeholder.com/150"} alt="" />
+               <div className="text-3xl font-bold">{blog.title}</div>
               <div className="text-sm font-normal text-slate-500 pt-1">
                 {" "}
                 Posted on March 2024
