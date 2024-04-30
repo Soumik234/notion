@@ -12,8 +12,63 @@ export const Publish = () => {
   return (
     <>
       <Appbar />
+      <div className="w-full max-w-xs">
+  <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <h1 className="text-3xl font-bold mb-4">Publish</h1>
+    <div className="mb-4">
+      <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">
+            Title
+          </label>
+      <input
+            type="text"
+            id="title"
+            name="title"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+    </div>
+    <div className="mb-6">
+      <label className="block text-gray-700 text-sm font-bold mb-2">
+        Description
+      </label>
+      <div className="mt-2">
+                <textarea
+                  id="about"
+                  name="about"
+                  rows={3}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"                  defaultValue={''}
+                  onChange={(e) => setContent(e.target.value)}
+               />
+      </div>
+    </div>
+    <div className="mb-6">
+    <label htmlFor="content" className="mb-2">
+            Content
+          </label>
+     <div className="mt-2">     
+          <textarea
+            id="content"
+            name="content"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400" 
+            onChange={(e) => setContent(e.target.value)}
+          />
+        </div>
+    </div>      
+
+
+    <div className="flex items-center justify-between">
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        Sign In
+      </button>
+      <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+        Forgot Password?
+      </a>
+    </div>
+  </form>
+
+</div>
       <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-3xl font-bold mb-4">Publish</h1>
+        {/* <h1 className="text-3xl font-bold mb-4">Publish</h1>
         <div className="flex flex-col">
           <label htmlFor="title" className="mb-2">
             Title
@@ -26,14 +81,29 @@ export const Publish = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div className="flex flex-col">
+        <div className="col-span-full">
+              <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
+                About
+              </label>
+              <div className="mt-2">
+                <textarea
+                  id="about"
+                  name="about"
+                  rows={3}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  defaultValue={''}
+                />
+              </div> */}
+              {/* </div> */}
+        <div className="col-span-full">
           <label htmlFor="content" className="mb-2">
             Content
           </label>
           <textarea
             id="content"
             name="content"
-            className="border-2 border-gray-300 p-2 rounded-md mb-4"
+            rows={4}
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
