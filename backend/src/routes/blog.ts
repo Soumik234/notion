@@ -47,9 +47,9 @@ blogRouter.post("/", async (c) => {
         },
       },
       tags: {
-        create: body.tags.map((tag: string) => ({
+        create: Array.isArray(body.tags) ? body.tags.map((tag: string) => ({
           name: tag,
-        })),
+        })) : [],
       },
     },
   });

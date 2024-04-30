@@ -21,13 +21,14 @@ export const BlogCard = ({
   image,
   tags,
 }: BlogCardProps) => {
-  // const colors ={
-  //   [#6941C6,#F9F5FF],
-  //   [#3538CD,#EEF4FF],
-  //   [#C11574,#FDF2FA],
-  //   [#027A48,#ECFDF3],
-  //   [#026AA2,#F0F9FF]
-  // }
+  const colors = [
+    { back: "#6941C6", text: "#F9F5FF" },
+    { back: "#3538CD", text: "#EEF4FF" },
+    { back: "#C11574", text: "#FDF2FA" },
+    { back: "#027A48", text: "#ECFDF3" },
+    { back: "#026AA2", text: "#F0F9FF" },
+  ];
+
   return (
     <Link to={`/blog/${id}`}>
       
@@ -40,7 +41,7 @@ export const BlogCard = ({
         
         <p className="mb-3 font-normal text-gray-700 ">{content.slice(0, 100) + "..."}</p>
         <div className="flex items-center">
-        <p className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+        <p className="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
   
             {`${Math.ceil(content.length / 100)} minute(s) read`}
              <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -48,11 +49,18 @@ export const BlogCard = ({
             </svg>
         </p>
         <p className="flex flex-wrap">
-  {tags.map((tag, index) => (
-    <button key={index} className="bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm py-2 px-2 rounded m-1">
+        {tags.map((tag, index) => {
+          const color = colors[Math.floor(Math.random() * colors.length)];
+
+  return (
+    <button 
+      key={index}
+      style={{ backgroundColor: color.back, color: color.text }} 
+      className="font-bold text-sm py-2 px-2 rounded m-1">
       {tag}
     </button>
-  ))}
+  );
+})}
 </p>
 </div>
     </div>

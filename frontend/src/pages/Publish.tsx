@@ -97,11 +97,7 @@ export const Publish = () => {
                 title,
                 content,
                 image,
-                tags:{
-                  create: tags.map((tag: string) => ({
-                    name: tag,
-                  })),
-                },
+                tags,
               },
               {
                 headers: {
