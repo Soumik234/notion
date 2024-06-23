@@ -10,6 +10,7 @@ export const blogRouter = new Hono<{
   };
   Variables: {
     userId: string;
+    posts:string;
   };
 }>();
 
@@ -85,6 +86,33 @@ blogRouter.get("/bulk", async (c) => {
   });
   return c.json({ posts });
 });
+
+blogRouter.put("/:id", async (c) => {
+  try{
+    const id=c.req.param("id")
+    const tags=c.req.json()
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+    const post = await prisma.post.update({
+      where: { id: Number(id) },
+      data: {
+        tags: {
+          connectOrCreate: Array.isArray(tags) ? tags.map(tag => ({
+            where: { name: tag.name }, // Use the tag name to find existing tags
+            create: tag // If no existing tag is found, create a new one
+          })) : [] 
+        }
+      },
+      include: {
+        tags: true 
+      }
+    });
+    return c.json({post});
+  }catch(e){
+    console.error(e)
+  }
+})
 
 blogRouter.get("/:id", async (c) => {
   try {

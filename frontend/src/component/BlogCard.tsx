@@ -27,72 +27,68 @@ export const BlogCard = ({
     { back: "#C11574", text: "#FDF2FA" },
     { back: "#027A48", text: "#ECFDF3" },
     { back: "#026AA2", text: "#F0F9FF" },
+    { back: "#FF5733", text: "#FFFFFF" },
+    { back: "#33FF57", text: "#000000" },
+    { back: "#FF33A1", text: "#FFFFFF" },
+    { back: "#33FFA1", text: "#000000" },
   ];
 
   return (
-    <Link to={`/blog/${id}`}>
-      
+    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl m-5">
+        <Link to={`/blog/${id}`}>
+        <img
+          className="rounded-t-lg max-h-l pb-2 gap-5 w-full h-64 object-cover object-center"
+          src={image}
+          alt="blog"
+        />
+        <div className="p-5">
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+            {title}
+          </h5>
 
-<div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl m-5">
-        <img className="rounded-t-lg max-h-l pb-2 gap-5 w-full h-64 object-cover object-center" src={image} alt="blog" />
-    <div className="p-5">
-       
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{title}</h5>
-        
-        <p className="mb-3 font-normal text-gray-700 ">{content.slice(0, 100) + "..."}</p>
-        <div className="flex items-center">
-        <p className="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
-  
-            {`${Math.ceil(content.length / 100)} minute(s) read`}
-             <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-            </svg>
-        </p>
-        <p className="flex flex-wrap">
-        {tags.map((tag, index) => {
-          const color = colors[Math.floor(Math.random() * colors.length)];
-
-  return (
-    <button 
-      key={index}
-      style={{ backgroundColor: color.back, color: color.text }} 
-      className="font-bold text-sm py-2 px-2 rounded m-1">
-      {tag}
-    </button>
-  );
-})}
-</p>
-</div>
-    </div>
-</div>
-
-      {/* <div className="p-4  border-slate-200 pb-4 cursor-pointer">
-        <div className="flex">
-          <img
-            src={image}
-            alt="blog"
-            className="max-h-l pb-2 mx-auto gap-5 w-auto h-64 object-cover object-center"
-          />
-          <Avatar name={author} />
-          <div className="font-extralight pl-2 text-sm flex justify-center flex-col">{author}</div>
-          <div className="flex justify-center pl-2 flex-col">
-              <Circle />
-          </div>
-          <div className="pl-2 font-thin text-slate-500 text-sm flex justify-center flex-col">
-              {publishedDate}
-          </div>
-        </div>
-        <div className="text-2xl font-semibold mb-3.5 text-black">{title}</div>
-        <div className="text-base font-regular mb-3.5 text-customColor">
-          {content.slice(0, 100) + "..."}
-        </div>
-        <div className="flex">
-          <div className="text-green-600 text-sm font-thin pt-4 ">
-            {`${Math.ceil(content.length / 100)} minute(s) read`}
+          <p className="mb-3 font-normal text-gray-700 ">
+            {content.slice(0, 100) + "..."}
+          </p>
+          <div className="flex items-center">
+            <p className="inline-flex items-center px-3 py-2 mr-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+              {`${Math.ceil(content.length / 100)} minute(s) read`}
+              <svg
+                className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </p>
+            <p className="flex flex-wrap">
+              {tags.map((tag, index) => {
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const capitalizedTag = tag[0].toUpperCase() + tag.slice(1);
+                return (
+                  <button
+                    key={index}
+                    style={{ backgroundColor: color.back, color: color.text }}
+                    className="font-bold text-sm py-2 px-2 rounded m-1"
+                  >
+                    {capitalizedTag}
+                  </button>
+                );
+              })}
+            </p>
           </div>
         </div>
-      </div> */}
-    </Link>
+        </Link>
+      </div>
+
+    
   );
 };
 

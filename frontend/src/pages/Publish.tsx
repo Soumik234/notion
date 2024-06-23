@@ -14,7 +14,7 @@ export const Publish = () => {
       <Appbar />
       <div className="flex items-center justify-center min-h-screen">
         <div className="w-full max-w-4xl ">
-          <form className="bg-white shadow-xl rounded px-8 pt-6 pb-8 mb-4 border border-gray-300">
+          <div className="bg-white shadow-xl rounded px-8 pt-6 pb-8 mb-4 border border-gray-300">
             <h1 className="flex text-3xl font-extrabold mb-4 justify-center text-gray-900">Publish</h1>
             <div className="mb-4">
               <label
@@ -128,7 +128,7 @@ export const Publish = () => {
                 Publish
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
